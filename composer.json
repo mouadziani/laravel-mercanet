@@ -1,0 +1,62 @@
+{
+    "name": "mouadziani/laravel-mercanet",
+    "description": "A laravel wrapper for BnpParibas Mercanet payment gateway",
+    "keywords": [
+        "mouadziani",
+        "laravel",
+        "laravel-mercanet"
+    ],
+    "homepage": "https://github.com/mouadziani/laravel-mercanet",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "MouadZIANI",
+            "email": "mouad.ziani1997@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "spatie/laravel-package-tools": "^1.4.3",
+        "illuminate/contracts": "^8.37"
+    },
+    "require-dev": {
+        "brianium/paratest": "^6.2",
+        "nunomaduro/collision": "^5.3",
+        "orchestra/testbench": "^6.15",
+        "phpunit/phpunit": "^9.3",
+        "spatie/laravel-ray": "^1.23",
+        "vimeo/psalm": "^4.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mouadziani\\Mercanet\\": "src",
+            "Mouadziani\\Mercanet\\Database\\Factories\\": "database/factories"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Mouadziani\\Mercanet\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "psalm": "vendor/bin/psalm",
+        "test": "./vendor/bin/testbench package:test --parallel --no-coverage",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Mouadziani\\Mercanet\\MercanetServiceProvider"
+            ],
+            "aliases": {
+                "Mercanet": "Mouadziani\\Mercanet\\MercanetFacade"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
