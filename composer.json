@@ -2,7 +2,7 @@
     "name": "mouadziani/laravel-mercanet",
     "description": "A laravel wrapper for BnpParibas Mercanet payment gateway",
     "keywords": [
-        "mouadziani",
+        "mercanet",
         "laravel",
         "laravel-mercanet"
     ],
@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^7.4.0",
         "spatie/laravel-package-tools": "^1.4.3",
         "illuminate/contracts": "^8.37"
     },
@@ -30,8 +30,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Mouadziani\\Mercanet\\": "src",
-            "Mouadziani\\Mercanet\\Database\\Factories\\": "database/factories"
+            "Mouadziani\\Mercanet\\": "src"
         }
     },
     "autoload-dev": {
