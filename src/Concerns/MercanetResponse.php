@@ -4,7 +4,7 @@
 namespace Mouadziani\Mercanet\Concerns;
 
 
-trait RequestValidator
+trait MercanetResponse
 {
-    //
+
 }

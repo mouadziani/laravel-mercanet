@@ -2,21 +2,35 @@
 
 namespace Mouadziani\Mercanet;
 
+use Mouadziani\Mercanet\Concerns\MercanetRequest;
+use Mouadziani\Mercanet\Concerns\MercanetResponse;
+
 class Mercanet
 {
+    use MercanetRequest;
+    use MercanetResponse;
+
     /**
-     * Mercanet constructor.
+     * @var string
      */
-    public function __construct() {
-    }
+    protected string $secretKey;
+
+    /**
+     * @var array
+     */
+    protected array $config = [];
 
     /**
      * Static constructor
      *
      * @return static
      */
-    public static function prepare(): self
+    public static function boot(): self
     {
-        return new static();
+        $instance = new static();
+        $instance->config = config('mercanet');
+        $instance->preparePaymentRequest();
+
+        return $instance;
     }
 }

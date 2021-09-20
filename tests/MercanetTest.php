@@ -7,7 +7,7 @@ namespace Mouadziani\Mercanet\Tests;
 class MercanetTest extends TestCase
 {
     /** @test */
-    public function true_is_true()
+    public function test_it()
     {
         $this->assertTrue(true);
     }

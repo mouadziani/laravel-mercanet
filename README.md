@@ -19,18 +19,20 @@ You can publish the config file with:
 php artisan vendor:publish --provider="Mouadziani\Mercanet\MercanetServiceProvider" --tag="laravel-mercanet-config"
 ```
 
-This is the contents of the published config file:
-
-```php
-return [
-    //
-];
-```
-
 ## Usage
 
 ```php
-//
+use Mouadziani\Mercanet\Mercanet;
+
+Mercanet::boot()
+    ->setTransactionReference('123456789')
+    ->setCurrency('USD')
+    ->setLanguage('fr')
+    ->setAmount(19000.50)
+    ->setBillingContactFirstname('John')
+    ->setBillingContactLastname('Doe')
+    ->setCustomerContactEmail('john@doe.com')
+    ->pay();
 ```
 
 ## Testing

@@ -13,7 +13,7 @@ class MercanetServiceProvider extends PackageServiceProvider
          * This class is a Package Service Provider
          */
         $package
-            ->name('laravel-mercanet')
+            ->name('Mercanet')
             ->hasConfigFile();
     }
 }
