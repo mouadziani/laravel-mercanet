@@ -4,6 +4,7 @@
 namespace Mouadziani\Mercanet\Concerns;
 
 
+use Illuminate\Support\Facades\Redirect;
 use InvalidArgumentException;
 use RuntimeException;
 
@@ -338,6 +339,20 @@ trait MercanetRequest
         throw new BadMethodCallException("Unknown method $method");
     }
 
+    /**
+     * @return string
+     */
+    private function optionsToString(): string
+    {
+        $optionString = "";
+        foreach($this->options as $key => $value) {
+            $optionString .= $key . '=' . $value;
+            $optionString .= (array_search($key, array_keys($this->options)) != (count($this->options)-1)) ? '|' : '';
+        }
+
+        return $optionString;
+    }
+
     public function validateRequestOptions()
     {
         foreach($this->requiredFields as $field) {
@@ -352,7 +367,7 @@ trait MercanetRequest
      *
      * @return ?string
      */
-    public function shaCompose(): ?string
+    public function getShaSign(): ?string
     {
         $shaString = '';
         foreach($this->options as $key => $value) {
@@ -384,8 +399,18 @@ trait MercanetRequest
         $this->options['normalReturnUrl'] = $this->config['normal_return_url'];
     }
 
-    protected function pay(): void
+    /**
+     * Handle payment process
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    protected function pay(): \Illuminate\Http\RedirectResponse
     {
-        // @TODO: to be completed
+        return Redirect::away($this->checkoutUrl)
+            ->with([
+                'Data' => $this->optionsToString(),
+                'InterfaceVersion' => self::INTERFACE_VERSION,
+                'Seal' => $this->getShaSign(),
+            ]);
     }
 }

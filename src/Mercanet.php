@@ -10,6 +10,8 @@ class Mercanet
     use MercanetRequest;
     use MercanetResponse;
 
+    const INTERFACE_VERSION = 'HP_2.20';
+
     /**
      * @var string
      */
