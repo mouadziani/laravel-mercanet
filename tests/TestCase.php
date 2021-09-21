@@ -2,12 +2,14 @@
 
 namespace Mouadziani\Mercanet\Tests;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Mouadziani\Mercanet\Tests\Traits\AssertThrows;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Mouadziani\Mercanet\MercanetServiceProvider;
 
 class TestCase extends Orchestra
 {
+    use AssertThrows;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -23,5 +25,16 @@ class TestCase extends Orchestra
     public function getEnvironmentSetUp($app)
     {
         config()->set('database.default', 'testing');
+    }
+
+    public function fillDefaultConfig()
+    {
+        config()->set('mercanet.test', [
+            'merchant_id' => '12342442',
+            'key_version' => '1',
+            'secret_key' => 'abcdef',
+        ]);
+
+        config()->set('mercanet.normal_return_url', 'https://example.com/payments/callback');
     }
 }

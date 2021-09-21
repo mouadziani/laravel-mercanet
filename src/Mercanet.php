@@ -23,16 +23,20 @@ class Mercanet
     protected array $config = [];
 
     /**
+     * Mercanet constructor.
+     */
+    public function __construct()
+    {
+        $this->config = config('mercanet');
+    }
+
+    /**
      * Static constructor
      *
      * @return static
      */
     public static function boot(): self
     {
-        $instance = new static();
-        $instance->config = config('mercanet');
-        $instance->preparePaymentRequest();
-
-        return $instance;
+        return (new static());
     }
 }

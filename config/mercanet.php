@@ -7,20 +7,20 @@ return [
     'mode' => env('MERCANET_MODE', 'TEST'),
 
     'test' => [
-        'merchant_id' => env('MERCANET_TEST_MERCHANT_ID'),
+        'merchant_id' => env('MERCANET_TEST_MERCHANT_ID', ''),
         'key_version' => env('MERCANET_TEST_KEY_VERSION', '1'),
-        'secret_key' => env('MERCANET_TEST_SECRET_KEY'),
+        'secret_key' => env('MERCANET_TEST_SECRET_KEY', ''),
     ],
 
     'production' => [
-        'merchant_id' => env('MERCANET_PRODUCTION_MERCHANT_ID'),
+        'merchant_id' => env('MERCANET_PRODUCTION_MERCHANT_ID', ''),
         'key_version' => env('MERCANET_PRODUCTION_KEY_VERSION', '1'),
-        'secret_key' => env('MERCANET_PRODUCTION_SECRET_KEY'),
+        'secret_key' => env('MERCANET_PRODUCTION_SECRET_KEY', ''),
     ],
 
     'currency' => env('MERCANET_CURRENCY', 'USD'),
 
-    'normal_return_url' => env('MERCANET_NORMAL_RETURN_URL'),
+    'normal_return_url' => env('MERCANET_NORMAL_RETURN_URL', 'https://example.com/payments/callback'),
 
     /**
      * Allowed languages 'nl', 'fr', 'de', 'it', 'es', 'cy', 'en'

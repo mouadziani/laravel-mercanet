@@ -25,6 +25,7 @@ php artisan vendor:publish --provider="Mouadziani\Mercanet\MercanetServiceProvid
 use Mouadziani\Mercanet\Mercanet;
 
 Mercanet::boot()
+    ->newPaymentRequest()
     ->setTransactionReference('123456789')
     ->setCurrency('USD')
     ->setLanguage('fr')
