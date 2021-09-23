@@ -46,6 +46,27 @@ class Helper
     }
 
     /**
+     * Generate SHA hash
+     *
+     * @param array $options
+     * @param string $secretKey
+     *
+     * @return ?string
+     */
+    public static function generateSHASign(array $options, string $secretKey): ?string
+    {
+        $shaString = '';
+        foreach($options as $key => $value) {
+            $shaString .= $key . '=' . $value;
+            $shaString .= (array_search($key, array_keys($options)) != (count($options)-1))
+                ? '|'
+                : $secretKey;
+        }
+
+        return hash('sha256', $shaString);
+    }
+
+    /**
      * Redirect to given url with post method
      *
      * @param string $url

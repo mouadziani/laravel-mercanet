@@ -8,9 +8,7 @@ use Mouadziani\Mercanet\Support\Helper;
 
 trait MercanetRequest
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private string $checkoutUrl;
 
     /**
@@ -84,9 +82,7 @@ trait MercanetRequest
         'nl', 'fr', 'de', 'it', 'es', 'cy', 'en'
     ];
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private array $options = [];
 
     /**
@@ -224,7 +220,7 @@ trait MercanetRequest
             throw new \InvalidArgumentException("street is too long");
         }
 
-        $this->options['billingAddress.street'] = Normalizer::normalize($street);
+        $this->options['billingAddress.street'] = \Normalizer::normalize($street);
 
         return $this;
     }
@@ -240,7 +236,7 @@ trait MercanetRequest
             throw new \InvalidArgumentException("streetNumber is too long");
         }
 
-        $this->options['billingAddress.streetNumber'] = Normalizer::normalize($streetNumber);
+        $this->options['billingAddress.streetNumber'] = \Normalizer::normalize($streetNumber);
 
         return $this;
     }
@@ -256,7 +252,7 @@ trait MercanetRequest
             throw new \InvalidArgumentException("zipCode is too long");
         }
 
-        $this->options['billingAddress.zipCode'] = Normalizer::normalize($zipCode);
+        $this->options['billingAddress.zipCode'] = \Normalizer::normalize($zipCode);
 
         return $this;
     }
@@ -272,7 +268,7 @@ trait MercanetRequest
             throw new \InvalidArgumentException("city is too long");
         }
 
-        $this->options['billingAddress.city'] = Normalizer::normalize($city);
+        $this->options['billingAddress.city'] = \Normalizer::normalize($city);
 
         return $this;
     }
@@ -300,7 +296,7 @@ trait MercanetRequest
      */
     public function setBillingContactFirstname(string $firstname): self
     {
-        $this->options['billingContact.firstname'] = str_replace(array("'", '"'), '', Normalizer::normalize($firstname));
+        $this->options['billingContact.firstname'] = str_replace(array("'", '"'), '', \Normalizer::normalize($firstname));
 
         return $this;
     }
@@ -312,7 +308,7 @@ trait MercanetRequest
      */
     public function setBillingContactLastname(string $lastname): self
     {
-        $this->options['billingContact.lastname'] = str_replace(array("'", '"'), '', Normalizer::normalize($lastname));
+        $this->options['billingContact.lastname'] = str_replace(array("'", '"'), '', \Normalizer::normalize($lastname));
 
         return $this;
     }
@@ -356,7 +352,7 @@ trait MercanetRequest
             $optionString .= (array_search($key, array_keys($this->options)) != (count($this->options)-1)) ? '|' : '';
         }
 
-        return $optionString;
+        return utf8_decode($optionString);
     }
 
     public function validateRequiredOptions(): void
@@ -366,24 +362,6 @@ trait MercanetRequest
                 throw new \RuntimeException($field . " can not be empty");
             }
         }
-    }
-
-    /**
-     * Generate SHA hash
-     *
-     * @return ?string
-     */
-    private function generateShaSign(): ?string
-    {
-        $shaString = '';
-        foreach($this->options as $key => $value) {
-            $shaString .= $key . '=' . $value;
-            $shaString .= (array_search($key, array_keys($this->options)) != (count($this->options)-1))
-                ? '|'
-                : $this->secretKey;
-        }
-
-        return hash('sha256', $shaString);
     }
 
     /**
@@ -424,7 +402,7 @@ trait MercanetRequest
         return Helper::redirectPost($this->checkoutUrl, [
             'Data' => $this->optionsToString(),
             'InterfaceVersion' => self::INTERFACE_VERSION,
-            'Seal' => $this->generateShaSign(),
+            'Seal' => Helper::generateSHASign($this->options, $this->secretKey),
         ]);
     }
 }
