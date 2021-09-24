@@ -43,7 +43,7 @@ return [
         'secret_key' => env('MERCANET_PRODUCTION_SECRET_KEY', ''), // Required
     ],
 
-    'currency' => env('MERCANET_CURRENCY', 'USD'),
+    'currency' => env('MERCANET_CURRENCY', 'EUR'),
 
     // Should be replaced with a url of your callback post route,
     // which will be invoked by mercanet service after processing of any payment.
@@ -71,7 +71,7 @@ $mercanet = new Mercanet();
 $mercanet = Mercanet::boot();
 ```
 
-### Process new payment
+### Prepare and process payment request
 In order to process new payment you need to call ``` newPaymentRequest() ``` from the existing mercanet instance and then set the following arguments 
 ```php
 $mercanet->newPaymentRequest();
@@ -79,11 +79,11 @@ $mercanet->newPaymentRequest();
 // Required
 $mercanet->setTransactionReference('123456789'); 
 
-// By default the currency used is USD. If you wish to change it,
+// By default the currency used is EUR. If you wish to change it,
 // you may call setCurrency method to set a different currency before calling pay() method
-$mercanet->setCurrency('USD');
+$mercanet->setCurrency('EUR');
 
-// Optional, You can also call setLanguage method to change the default locale of checkout page
+// Optionally, You can also call setLanguage method to change the default locale of checkout page
 $mercanet->setLanguage('fr');
 
 // Required and it should be integer
@@ -108,7 +108,7 @@ use Mouadziani\Mercanet\Mercanet;
 Mercanet::boot()
     ->newPaymentRequest()
     ->setTransactionReference('123456789')
-    ->setCurrency('USD')
+    ->setCurrency('EUR')
     ->setLanguage('fr')
     ->setAmount(19000.50)
     ->setBillingContactFirstname('John')
@@ -117,17 +117,32 @@ Mercanet::boot()
     ->pay();
 ```
 
+### Validate payment transaction from callback request
 
-### Callback request
+In order to retrieve transaction reference and payment status of from  the response of callback request, you call the following methods.
+
 ```php
 use Mouadziani\Mercanet\Mercanet;
 
+// Create new instance or call static constructor from Mercanet class 
+// and then call fromRequest() method and pass request parameters into it. 
 $paymentResponse = Mercanet::boot()->fromResponse(request()->all());
 
+// Then you can check if the given payment response is successfully passed by calling isSuccessfullyPassed() method
 if($paymentResponse->isSuccessfullyPassed()) {
-    Order::query()
-        ->where('transaction_reference', $paymentResponse->getTransactionReference())
-        ->markAsPaid();
+    // The payment is accepted.
+    
+    // You can get the transaction reference from the given payment request object
+    $transactionReference = $paymentResponse->getTransactionReference();
+    
+    // Then you can do what you want, eg. change the status of your order or mark it as paid...
+    App\Order::query()
+        ->where('transaction_reference', $transactionReference)
+        ->update([
+            'is_paid' => true
+        ]);
+} else {
+    // The payment is failed 
 }
 ```
 
