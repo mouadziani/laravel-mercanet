@@ -36,6 +36,19 @@ Mercanet::boot()
     ->pay();
 ```
 
+```php
+use Mouadziani\Mercanet\Mercanet;
+
+$paymentResponse = Mercanet::boot()
+    ->fromResponse(request()->all());
+
+if($paymentResponse->isSuccessfullyPassed()) {
+    Order::query()
+    ->where('transaction_reference', $paymentResponse->getTransactionReference())
+    ->markAsPaid();
+}
+```
+
 ## Testing
 
 ```bash

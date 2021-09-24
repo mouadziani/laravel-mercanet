@@ -56,7 +56,12 @@ trait MercanetResponse
         return $parameters;
     }
 
-    private function extractShaSign(array $responseParameters)
+    /**
+     * @param array $responseParameters
+     *
+     * @return sring
+     */
+    private function extractShaSign(array $responseParameters): ?string
     {
         if(
             ! array_key_exists('SEAL', $responseParameters)
@@ -130,5 +135,13 @@ trait MercanetResponse
     public function getResponseParameters(): array
     {
         return $this->responseParameters;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTransactionReference(): string
+    {
+        return $this->responseParameters['transactionReference'];
     }
 }

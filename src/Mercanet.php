@@ -12,14 +12,10 @@ class Mercanet
 
     const INTERFACE_VERSION = 'HP_2.20';
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected string $secretKey;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected array $config = [];
 
     /**
