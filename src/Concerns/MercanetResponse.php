@@ -2,6 +2,7 @@
 
 namespace Mouadziani\Mercanet\Concerns;
 
+use InvalidArgumentException;
 use Mouadziani\Mercanet\Support\Helper;
 
 trait MercanetResponse
@@ -40,13 +41,14 @@ trait MercanetResponse
         if (
             ! array_key_exists('DATA', $httpResponse)
             ||
-            $httpResponse['DATA'] == ''
+            '' === $httpResponse['DATA']
         ) {
             throw new InvalidArgumentException('Data parameter not present in parameters.');
         }
 
         $responseParameters = explode('|', $httpResponse['DATA']);
         $parameters = [];
+
         foreach ($responseParameters as $parameter) {
             $dataKeyValue = explode('=', $parameter, 2);
             $parameters[$dataKeyValue[0]] = $dataKeyValue[1];
@@ -58,14 +60,14 @@ trait MercanetResponse
     /**
      * @param array $responseParameters
      *
-     * @return sring
+     * @return string|null
      */
     private function extractShaSign(array $responseParameters): ?string
     {
         if (
             ! array_key_exists('SEAL', $responseParameters)
             ||
-            $responseParameters['SEAL'] == ''
+            '' === $responseParameters['SEAL']
         ) {
             throw new InvalidArgumentException('SHASIGN parameter not present in parameters.');
         }
@@ -82,8 +84,8 @@ trait MercanetResponse
      */
     public function getParameter(string $key)
     {
-        if (method_exists($this, 'get'.$key)) {
-            return $this->{'get'.$key}();
+        if (method_exists($this, 'get' . $key)) {
+            return $this->{'get' . $key}();
         }
 
         $key = strtoupper($key);
@@ -102,7 +104,7 @@ trait MercanetResponse
      */
     public function isValid(): bool
     {
-        return Helper::generateSHASign($this->responseParameters, $this->secretKey) == $this->shaSign;
+        return Helper::generateSHASign($this->responseParameters, $this->secretKey) === $this->shaSign;
     }
 
     /**
@@ -114,7 +116,8 @@ trait MercanetResponse
     {
         return in_array(
             $this->getParameter('RESPONSECODE'),
-            ['00', '60']
+            ['00', '60'],
+            true
         );
     }
 

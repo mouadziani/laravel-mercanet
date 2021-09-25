@@ -13,7 +13,7 @@ class Helper
      */
     public static function isValidatedUri(string $uri): bool
     {
-        if (! filter_var($uri, FILTER_VALIDATE_URL) or strlen($uri) > 200) {
+        if (! filter_var($uri, FILTER_VALIDATE_URL) || strlen($uri) > 200) {
             return false;
         }
 
@@ -54,7 +54,7 @@ class Helper
         $shaString = '';
         foreach ($options as $key => $value) {
             $shaString .= $key . '=' . $value;
-            $shaString .= (array_search($key, array_keys($options)) != (count($options) - 1))
+            $shaString .= (array_search($key, array_keys($options), true) !== (count($options) - 1))
                 ? '|'
                 : $secretKey;
         }
@@ -70,22 +70,29 @@ class Helper
      */
     public static function redirectPost(string $url, array $parameters = []): void
     {
-        $html = '<!doctype html>
-            <html>
-            <head>
-			</head>
-			<body>
-			<form id="redirect_form" method="post" action="'.$url.'" >';
+        $html = <<<HTML
+                    <!doctype html>
+                    <html lang="en">
+                    <head>
+                    </head>
+                    <body>
+                        <form id="redirect_form" method="post" action="{$url}" >'
+                    HTML;
+
         foreach ($parameters as $name => $value) {
             $html .= "<input type='hidden' name='$name' id='$name' value='$value' />";
         }
-        $html .= '</form>
-			<script>
-			    const form = document.getElementById("redirect_form");
-			    form.submit();
-			</script>
-			</body>
-			</html>';
+
+        $html .= <<<HTML
+                    </form>
+                    <script>
+                        const form = document.getElementById("redirect_form");
+                        form.submit();
+                    </script>
+                </body>
+                </html>';
+                HTML;
+
         echo $html;
         exit();
     }
