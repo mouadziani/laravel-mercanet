@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Mouadziani\Mercanet\Concerns;
 
 use Mouadziani\Mercanet\Support\Helper;
@@ -38,7 +37,7 @@ trait MercanetResponse
      */
     private function filterRequestParameters(array $httpResponse): array
     {
-        if(
+        if (
             ! array_key_exists('DATA', $httpResponse)
             ||
             $httpResponse['DATA'] == ''
@@ -48,7 +47,7 @@ trait MercanetResponse
 
         $responseParameters = explode('|', $httpResponse['DATA']);
         $parameters = [];
-        foreach($responseParameters as $parameter) {
+        foreach ($responseParameters as $parameter) {
             $dataKeyValue = explode('=', $parameter, 2);
             $parameters[$dataKeyValue[0]] = $dataKeyValue[1];
         }
@@ -63,7 +62,7 @@ trait MercanetResponse
      */
     private function extractShaSign(array $responseParameters): ?string
     {
-        if(
+        if (
             ! array_key_exists('SEAL', $responseParameters)
             ||
             $responseParameters['SEAL'] == ''
@@ -83,13 +82,13 @@ trait MercanetResponse
      */
     public function getParameter(string $key)
     {
-        if(method_exists($this, 'get'.$key)) {
+        if (method_exists($this, 'get'.$key)) {
             return $this->{'get'.$key}();
         }
 
         $key = strtoupper($key);
         $parameters = array_change_key_case($this->responseParameters, CASE_UPPER);
-        if(!array_key_exists($key, $parameters)) {
+        if (! array_key_exists($key, $parameters)) {
             throw new InvalidArgumentException('Parameter ' . $key . ' does not exist.');
         }
 

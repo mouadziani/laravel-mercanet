@@ -1,11 +1,8 @@
 <?php
 
-
 namespace Mouadziani\Mercanet\Tests;
 
-
 use Mouadziani\Mercanet\Mercanet;
-
 
 class MercanetRequestTest extends TestCase
 {
