@@ -20,7 +20,7 @@ php artisan vendor:publish --provider="Mouadziani\Mercanet\MercanetServiceProvid
 ```
 
 ## Configuration
-First, you need to change the following credentials located in the ```app/config/mercanet.php``` file, with your own credentials given from your account mercanet.
+First, you need to change the following credentials located in the ```app/config/mercanet.php``` file, with your own credentials given from your mercanet account.
 
 ```php
 return [
@@ -50,7 +50,7 @@ return [
     'normal_return_url' => env('MERCANET_NORMAL_RETURN_URL', 'https://example.com/payments/callback'),
 
     /**
-    * You can set the default locale that you need to be use in mercanet payment page
+    * You can set the default locale that you need to be used to translate the mercanet payment page
      * Allowed languages 'nl', 'fr', 'de', 'it', 'es', 'cy', 'en'
      */
     'language' => env('MERCANET_LOCALE', 'en'),
@@ -83,7 +83,7 @@ $mercanet->setTransactionReference('123456789');
 // you may call setCurrency method to set a different currency before calling pay() method
 $mercanet->setCurrency('EUR');
 
-// Optionally, You can also call setLanguage method to change the default locale of checkout page
+// Optionally, You can also call setLanguage method to change the default locale of payment page
 $mercanet->setLanguage('fr');
 
 // Required and it should be integer
@@ -101,7 +101,8 @@ $mercanet->setCustomerContactEmail('john@doe.com');
 // Then you can call pay() method to redirect user to the payment page of mercanet website.
 $mercanet->pay();
 ```
-Instead of creation new instance from Mercanet class and call method on it separately, also use the static constructor as the following example:
+Instead of creation new instance from Mercanet class and call method separately on it, you can use also the static constructor as the following example:
+
 ```php
 use Mouadziani\Mercanet\Mercanet;
 
@@ -119,12 +120,12 @@ Mercanet::boot()
 
 ### Validate payment transaction from callback request
 
-In order to retrieve transaction reference and payment status of from  the response of callback request, you call the following methods.
+In order to retrieve transaction reference and payment status from the given callback request, you can use the following methods.
 
 ```php
 use Mouadziani\Mercanet\Mercanet;
 
-// Create new instance or call static constructor from Mercanet class 
+// Create new instance or call the static constructor from Mercanet class 
 // and then call fromRequest() method and pass request parameters into it. 
 $paymentResponse = Mercanet::boot()->fromResponse(request()->all());
 
@@ -132,10 +133,10 @@ $paymentResponse = Mercanet::boot()->fromResponse(request()->all());
 if($paymentResponse->isSuccessfullyPassed()) {
     // The payment is accepted.
     
-    // You can get the transaction reference from the given payment request object
+    // You can get the transaction reference from the initialized payment request object
     $transactionReference = $paymentResponse->getTransactionReference();
     
-    // Then you can do what you want, eg. change the status of your order or mark it as paid...
+    // Then you can do what you want, eg. change the status of the order related to the transaction reference, or mark it as paid...
     App\Order::query()
         ->where('transaction_reference', $transactionReference)
         ->update([
