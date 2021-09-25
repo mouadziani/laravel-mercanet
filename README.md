@@ -1,5 +1,10 @@
+<p align="center" style="margin-top: 2rem; margin-bottom: 2rem;">
+    <img src="/art/banner.png" alt="Logo Laravel Mercanet"/>
+</p>
+
 # Laravel Mercanet
-A laravel wrapper for BnpParibas Mercanet payment gateway
+
+A laravel wrapper for BnpParibas Mercanet payment gateway which provide a lightweight public api to process your online payments using [BnpParibas Mercanet](https://mabanquepro.bnpparibas/fr/notre-offre-pro/comptes-cartes-et-services/solutions-d-encaissement/encaissement-internet-et-mobile/offre-e-commerce-mercanet) payment gateway from your laravel application
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/mouadziani/laravel-mercanet.svg?style=flat-square)](https://packagist.org/packages/mouadziani/laravel-mercanet)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/mouadziani/laravel-mercanet/run-tests?label=tests)](https://github.com/mouadziani/laravel-mercanet/actions?query=workflow%3Arun-tests+branch%3Amain)
@@ -161,6 +166,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 - [MouadZIANI](https://github.com/mouadziani)
 - [All Contributors](../../contributors)
+
 
 ## License
 
