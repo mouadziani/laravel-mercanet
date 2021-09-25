@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Mouadziani\Mercanet\Concerns;
-
 
 use Mouadziani\Mercanet\Support\Helper;
 
@@ -70,7 +68,7 @@ trait MercanetRequest
         'merchantId',
         'normalReturnUrl',
         'transactionReference',
-        'keyVersion'
+        'keyVersion',
     ];
 
     /**
@@ -79,7 +77,7 @@ trait MercanetRequest
      * @var array|string[]
      */
     private array $allowedLanguages = [
-        'nl', 'fr', 'de', 'it', 'es', 'cy', 'en'
+        'nl', 'fr', 'de', 'it', 'es', 'cy', 'en',
     ];
 
     /** @var array */
@@ -92,7 +90,7 @@ trait MercanetRequest
      */
     public function setTransactionReference(string $transactionReference): self
     {
-        if(preg_match('/[^a-zA-Z0-9_-]/', $transactionReference)) {
+        if (preg_match('/[^a-zA-Z0-9_-]/', $transactionReference)) {
             throw new \InvalidArgumentException("TransactionReference cannot contain special characters");
         }
 
@@ -108,11 +106,11 @@ trait MercanetRequest
      */
     public function setAmount(int $amount): self
     {
-        if(!is_int($amount)) {
+        if (! is_int($amount)) {
             throw new \InvalidArgumentException("Integer expected. Amount is always in cents");
         }
 
-        if($amount <= 0) {
+        if ($amount <= 0) {
             throw new \InvalidArgumentException("Amount must be a positive number");
         }
 
@@ -128,7 +126,7 @@ trait MercanetRequest
      */
     public function setCurrency(string $currency): self
     {
-        if(! $currencyCode = Helper::convertCurrencyToCode($currency)) {
+        if (! $currencyCode = Helper::convertCurrencyToCode($currency)) {
             throw new \InvalidArgumentException("Unknown currency");
         }
 
@@ -144,7 +142,7 @@ trait MercanetRequest
      */
     public function setLanguage(string $language): self
     {
-        if(!in_array($language, $this->allowedLanguages)) {
+        if (! in_array($language, $this->allowedLanguages)) {
             throw new \InvalidArgumentException("Invalid language locale");
         }
 
@@ -160,7 +158,7 @@ trait MercanetRequest
      */
     public function setNormalReturnUrl(string $url): self
     {
-        if(! Helper::isValidatedUri($url)) {
+        if (! Helper::isValidatedUri($url)) {
             throw new \InvalidArgumentException("Uri is not valid");
         }
 
@@ -176,11 +174,11 @@ trait MercanetRequest
      */
     public function setCustomerContactEmail(string $email): self
     {
-        if(strlen($email) > 50) {
+        if (strlen($email) > 50) {
             throw new \InvalidArgumentException("Email is too long");
         }
 
-        if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new \InvalidArgumentException("Email is invalid");
         }
 
@@ -196,11 +194,11 @@ trait MercanetRequest
      */
     public function setBillingContactEmail(string $email): self
     {
-        if(strlen($email) > 50) {
+        if (strlen($email) > 50) {
             throw new \InvalidArgumentException("Email is too long");
         }
 
-        if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new \InvalidArgumentException("Email is invalid");
         }
 
@@ -216,7 +214,7 @@ trait MercanetRequest
      */
     public function setBillingAddressStreet(string $street): self
     {
-        if(strlen($street) > 35) {
+        if (strlen($street) > 35) {
             throw new \InvalidArgumentException("street is too long");
         }
 
@@ -232,7 +230,7 @@ trait MercanetRequest
      */
     public function setBillingAddressStreetNumber(string $streetNumber): self
     {
-        if(strlen($streetNumber) > 10) {
+        if (strlen($streetNumber) > 10) {
             throw new \InvalidArgumentException("streetNumber is too long");
         }
 
@@ -248,7 +246,7 @@ trait MercanetRequest
      */
     public function setBillingAddressZipCode(string $zipCode): self
     {
-        if(strlen($zipCode) > 10) {
+        if (strlen($zipCode) > 10) {
             throw new \InvalidArgumentException("zipCode is too long");
         }
 
@@ -264,7 +262,7 @@ trait MercanetRequest
      */
     public function setBillingAddressCity(string $city): self
     {
-        if(strlen($city) > 25) {
+        if (strlen($city) > 25) {
             throw new \InvalidArgumentException("city is too long");
         }
 
@@ -280,7 +278,7 @@ trait MercanetRequest
      */
     public function setBillingContactPhone(string $phone): self
     {
-        if(strlen($phone) > 30) {
+        if (strlen($phone) > 30) {
             throw new \InvalidArgumentException("phone is too long");
         }
 
@@ -296,7 +294,7 @@ trait MercanetRequest
      */
     public function setBillingContactFirstname(string $firstname): self
     {
-        $this->options['billingContact.firstname'] = str_replace(array("'", '"'), '', \Normalizer::normalize($firstname));
+        $this->options['billingContact.firstname'] = str_replace(["'", '"'], '', \Normalizer::normalize($firstname));
 
         return $this;
     }
@@ -308,24 +306,25 @@ trait MercanetRequest
      */
     public function setBillingContactLastname(string $lastname): self
     {
-        $this->options['billingContact.lastname'] = str_replace(array("'", '"'), '', \Normalizer::normalize($lastname));
+        $this->options['billingContact.lastname'] = str_replace(["'", '"'], '', \Normalizer::normalize($lastname));
 
         return $this;
     }
 
     public function __call($method, $args)
     {
-        if(substr($method, 0, 3) == 'set') {
+        if (substr($method, 0, 3) == 'set') {
             $field = lcfirst(substr($method, 3));
-            if(in_array($field, $this->availableFields)) {
+            if (in_array($field, $this->availableFields)) {
                 $this->options[$field] = $args[0];
+
                 return $this;
             }
         }
 
-        if(substr($method, 0, 3) == 'get') {
+        if (substr($method, 0, 3) == 'get') {
             $field = lcfirst(substr($method, 3));
-            if(array_key_exists($field, $this->options)) {
+            if (array_key_exists($field, $this->options)) {
                 return $this->options[$field];
             }
         }
@@ -347,9 +346,9 @@ trait MercanetRequest
     private function optionsToString(): string
     {
         $optionString = "";
-        foreach($this->options as $key => $value) {
+        foreach ($this->options as $key => $value) {
             $optionString .= $key . '=' . $value;
-            $optionString .= (array_search($key, array_keys($this->options)) != (count($this->options)-1)) ? '|' : '';
+            $optionString .= (array_search($key, array_keys($this->options)) != (count($this->options) - 1)) ? '|' : '';
         }
 
         return utf8_decode($optionString);
@@ -357,8 +356,8 @@ trait MercanetRequest
 
     public function validateRequiredOptions(): void
     {
-        foreach($this->requiredFields as $field) {
-            if(empty($this->options[$field])) {
+        foreach ($this->requiredFields as $field) {
+            if (empty($this->options[$field])) {
                 throw new \RuntimeException($field . " can not be empty");
             }
         }

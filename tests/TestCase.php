@@ -2,9 +2,9 @@
 
 namespace Mouadziani\Mercanet\Tests;
 
+use Mouadziani\Mercanet\MercanetServiceProvider;
 use Mouadziani\Mercanet\Tests\Traits\AssertThrows;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Mouadziani\Mercanet\MercanetServiceProvider;
 
 class TestCase extends Orchestra
 {

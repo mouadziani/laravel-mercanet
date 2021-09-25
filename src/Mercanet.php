@@ -10,7 +10,7 @@ class Mercanet
     use MercanetRequest;
     use MercanetResponse;
 
-    const INTERFACE_VERSION = 'HP_2.20';
+    public const INTERFACE_VERSION = 'HP_2.20';
 
     /** @var string */
     protected string $secretKey;
