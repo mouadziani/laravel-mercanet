@@ -38,9 +38,7 @@ class Helper
             'XOF' => '952',
         ];
 
-        return (! in_array($currency, array_keys($currencies)))
-            ? null
-            : $currencies[$currency];
+        return $currencies[$currency] ?? null;
     }
 
     /**
