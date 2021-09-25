@@ -4,7 +4,7 @@
 
 # Laravel Mercanet
 
-A laravel wrapper for BnpParibas Mercanet payment gateway which provide a lightweight public api to process your online payments using [BnpParibas Mercanet](https://mabanquepro.bnpparibas/fr/notre-offre-pro/comptes-cartes-et-services/solutions-d-encaissement/encaissement-internet-et-mobile/offre-e-commerce-mercanet) payment gateway from your laravel application
+A laravel wrapper for [BnpParibas Mercanet](https://mabanquepro.bnpparibas/fr/notre-offre-pro/comptes-cartes-et-services/solutions-d-encaissement/encaissement-internet-et-mobile/offre-e-commerce-mercanet) which provide a lightweight public api to process your online payments from your laravel application.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/mouadziani/laravel-mercanet.svg?style=flat-square)](https://packagist.org/packages/mouadziani/laravel-mercanet)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/mouadziani/laravel-mercanet/run-tests?label=tests)](https://github.com/mouadziani/laravel-mercanet/actions?query=workflow%3Arun-tests+branch%3Amain)
