@@ -82,9 +82,6 @@ trait MercanetRequest
         'nl', 'fr', 'de', 'it', 'es', 'cy', 'en'
     ];
 
-    /** @var array */
-    private array $options = [];
-
     /**
      * @param string $transactionReference
      *
@@ -371,18 +368,9 @@ trait MercanetRequest
      */
     public function newPaymentRequest(): self
     {
-        $credentials = $this->config['mode'] == 'PRODUCTION'
-            ? $this->config['production']
-            : $this->config['test'];
-
         $this->checkoutUrl = $this->config['mode'] == 'PRODUCTION'
             ? 'https://payment-webinit.mercanet.bnpparibas.net/paymentInit'
             : 'https://payment-webinit-mercanet.test.sips-atos.com/paymentInit';
-
-        $this->options['merchantId'] = $credentials['merchant_id'];
-        $this->secretKey = $credentials['secret_key'];
-        $this->options['keyVersion'] = $credentials['key_version'];
-        $this->options['normalReturnUrl'] = $this->config['normal_return_url'];
 
         $this->setLanguage($this->config['language']);
         $this->setCurrency($this->config['currency']);
