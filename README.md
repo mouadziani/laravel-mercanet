@@ -90,7 +90,8 @@ $mercanet->setCurrency('EUR');
 // Optionally, You can also call setLanguage method to change the default locale of payment page
 $mercanet->setLanguage('fr');
 
-// Required and it should be integer
+// Required and it should be integer 
+// (make sure to multiplay the original amount * 100 eg: 199.00 * 100 = 19000)
 $mercanet->setAmount(19000);
 
 // Optional
@@ -115,7 +116,7 @@ Mercanet::boot()
     ->setTransactionReference('123456789')
     ->setCurrency('EUR')
     ->setLanguage('fr')
-    ->setAmount(19000.50)
+    ->setAmount(19000)
     ->setBillingContactFirstname('John')
     ->setBillingContactLastname('Doe')
     ->setCustomerContactEmail('john@doe.com')
