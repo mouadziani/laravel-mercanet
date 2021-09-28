@@ -50,8 +50,7 @@ trait AssertThrows
         string $class,
         callable $execute,
         callable $inspect = null
-    ): void
-    {
+    ): void {
         try {
             $execute();
         } catch (ExpectationFailedException $e) {
