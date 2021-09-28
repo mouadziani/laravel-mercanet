@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Mouadziani\Mercanet\Support;
-
 
 class Helper
 {
@@ -15,7 +13,7 @@ class Helper
      */
     public static function isValidatedUri(string $uri): bool
     {
-        if(!filter_var($uri, FILTER_VALIDATE_URL) or strlen($uri) > 200) {
+        if (! filter_var($uri, FILTER_VALIDATE_URL) || strlen($uri) > 200) {
             return false;
         }
 
@@ -37,12 +35,10 @@ class Helper
             'AUD' => '036', 'NZD' => '554', 'NOK' => '578', 'BRC' => '986',
             'ARP' => '032', 'KHR' => '116', 'TWD' => '901', 'SEK' => '752',
             'DKK' => '208', 'KRW' => '410', 'SGD' => '702', 'XPF' => '953',
-            'XOF' => '952'
+            'XOF' => '952',
         ];
 
-        return (!in_array($currency, array_keys($currencies)))
-            ? null
-            : $currencies[$currency];
+        return $currencies[$currency] ?? null;
     }
 
     /**
@@ -56,9 +52,9 @@ class Helper
     public static function generateSHASign(array $options, string $secretKey): ?string
     {
         $shaString = '';
-        foreach($options as $key => $value) {
+        foreach ($options as $key => $value) {
             $shaString .= $key . '=' . $value;
-            $shaString .= (array_search($key, array_keys($options)) != (count($options)-1))
+            $shaString .= (array_search($key, array_keys($options), true) !== (count($options) - 1))
                 ? '|'
                 : $secretKey;
         }
@@ -74,22 +70,29 @@ class Helper
      */
     public static function redirectPost(string $url, array $parameters = []): void
     {
-        $html = '<!doctype html>
-            <html>
-            <head>
-			</head>
-			<body>
-			<form id="redirect_form" method="post" action="'.$url.'" >';
-            foreach($parameters as $name => $value) {
-                $html.= "<input type='hidden' name='$name' id='$name' value='$value' />";
-            }
-        $html .= '</form>
-			<script>
-			    const form = document.getElementById("redirect_form");
-			    form.submit();
-			</script>
-			</body>
-			</html>';
+        $html = <<<HTML
+                    <!doctype html>
+                    <html lang="en">
+                    <head>
+                    </head>
+                    <body>
+                        <form id="redirect_form" method="post" action="{$url}" >'
+                    HTML;
+
+        foreach ($parameters as $name => $value) {
+            $html .= "<input type='hidden' name='$name' id='$name' value='$value' />";
+        }
+
+        $html .= <<<HTML
+                    </form>
+                    <script>
+                        const form = document.getElementById("redirect_form");
+                        form.submit();
+                    </script>
+                </body>
+                </html>';
+                HTML;
+
         echo $html;
         exit();
     }

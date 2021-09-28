@@ -20,11 +20,11 @@ composer require mouadziani/laravel-mercanet
 
 You can publish the config file with:
 ```bash
-php artisan vendor:publish --provider="Mouadziani\Mercanet\MercanetServiceProvider" --tag="laravel-mercanet-config"
+php artisan vendor:publish --provider="Mouadziani\Mercanet\MercanetServiceProvider"
 ```
 
 ## Configuration
-First, you need to change the following credentials located in the ```app/config/mercanet.php``` file, with your own credentials given from your mercanet account.
+First, you need to change the following credentials located in the ```config/mercanet.php``` file, with your own credentials given from your mercanet account.
 
 ```php
 return [
@@ -91,7 +91,7 @@ $mercanet->setCurrency('EUR');
 $mercanet->setLanguage('fr');
 
 // Required and it should be integer 
-// (make sure to multiplay the original amount * 100 eg: 199.00 * 100 = 19000)
+// Make sure to multiply the original amount * 100 (eg: 199.00 * 100 = 19000)
 $mercanet->setAmount(19000);
 
 // Optional
