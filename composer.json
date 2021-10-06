@@ -8,15 +8,13 @@
     ],
     "homepage": "https://github.com/mouadziani/laravel-mercanet",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "MouadZIANI",
-            "email": "mouad.ziani1997@gmail.com",
-            "role": "Developer"
-        }
-    ],
+    "authors": [{
+        "name": "MouadZIANI",
+        "email": "mouad.ziani1997@gmail.com",
+        "role": "Developer"
+    }],
     "require": {
-        "php": "^7.4.0",
+        "php": "^7.4.0|^8.0",
         "spatie/laravel-package-tools": "^1.4.3",
         "illuminate/contracts": "^8.37"
     },
