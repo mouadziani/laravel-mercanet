@@ -28,7 +28,7 @@ class Mercanet
     {
         $this->config = config('mercanet');
 
-        $credentials = $this->config['mode'] == 'PRODUCTION'
+        $credentials = $this->config['mode'] == 'Production'
             ? $this->config['production']
             : $this->config['test'];
 

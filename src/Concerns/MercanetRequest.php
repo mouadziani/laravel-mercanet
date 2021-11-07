@@ -371,7 +371,7 @@ trait MercanetRequest
      */
     public function newPaymentRequest(): self
     {
-        $this->checkoutUrl = $this->config['mode'] == 'PRODUCTION'
+        $this->checkoutUrl = $this->config['mode'] == 'Production'
             ? 'https://payment-webinit.mercanet.bnpparibas.net/paymentInit'
             : 'https://payment-webinit-mercanet.test.sips-atos.com/paymentInit';
 
