@@ -15,6 +15,6 @@ All notable changes to `laravel-mercanet` will be documented in this file.
 
 - Added support for PHP 8
 
-## 1.2.0 - 2021-07-11
+## 1.3.0 - 2021-07-11
 
 - Fix production mode alias
