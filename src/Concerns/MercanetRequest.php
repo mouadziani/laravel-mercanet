@@ -6,7 +6,6 @@ use Mouadziani\Mercanet\Support\Helper;
 
 trait MercanetRequest
 {
-    /** @var string */
     private string $checkoutUrl;
 
     /**
