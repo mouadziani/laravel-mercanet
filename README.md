@@ -172,4 +172,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-feautred_repository
+## They support this project
+
+<img width="150px" src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_square.png"/>
+
