@@ -173,7 +173,17 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-## They support this project
+## Sponsors
 
-<img width="150px" src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_square.png"/>
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="middle">
+        <a href="https://www.jetbrains.com/?from=https://github.com/mouadziani" target="_blank">
+          <img width="222px" src="https://user-images.githubusercontent.com/15586492/96636404-2c18dd00-1315-11eb-9520-736dffaaf0a7.png">
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
