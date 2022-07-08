@@ -25,7 +25,7 @@ php artisan vendor:publish --provider="Mouadziani\Mercanet\MercanetServiceProvid
 ```
 
 ## Configuration
-As a first, you need to change the following credentials located in the ```config/mercanet.php``` file, with your own credentials given from your mercanet account.
+As a first step, you need to change the following credentials located in the ```config/mercanet.php``` file, with your own credentials given from your mercanet account.
 
 ```php
 return [
