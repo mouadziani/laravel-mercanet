@@ -9,11 +9,6 @@ class MercanetServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
-        /*
-         * This class is a Package Service Provider
-         */
-        $package
-            ->name('mercanet')
-            ->hasConfigFile();
+        $package->name('mercanet')->hasConfigFile();
     }
 }
