@@ -354,6 +354,9 @@ trait MercanetRequest
         return utf8_decode($optionString);
     }
 
+    /**
+     * @return void
+     */
     public function validateRequiredOptions(): void
     {
         foreach ($this->requiredFields as $field) {

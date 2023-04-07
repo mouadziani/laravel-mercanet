@@ -31,6 +31,6 @@ class Mercanet
 
     public static function boot(): self
     {
-        return (new static());
+        return new static();
     }
 }
