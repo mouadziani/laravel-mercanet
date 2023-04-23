@@ -13,7 +13,7 @@ class Helper
      */
     public static function isValidatedUri(string $uri): bool
     {
-        if (!filter_var($uri, FILTER_VALIDATE_URL) || strlen($uri) > 200) {
+        if (! filter_var($uri, FILTER_VALIDATE_URL) || strlen($uri) > 200) {
             return false;
         }
 

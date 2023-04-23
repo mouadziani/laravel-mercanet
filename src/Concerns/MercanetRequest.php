@@ -120,7 +120,7 @@ trait MercanetRequest
     {
         $currencyCode = Helper::convertCurrencyToCode($currency);
 
-        if (!$currencyCode) {
+        if (! $currencyCode) {
             throw new \InvalidArgumentException('Unknown currency');
         }
 
@@ -136,7 +136,7 @@ trait MercanetRequest
      */
     public function setLanguage(string $language): self
     {
-        if (!in_array($language, $this->allowedLanguages, true)) {
+        if (! in_array($language, $this->allowedLanguages, true)) {
             throw new \InvalidArgumentException('Invalid language locale');
         }
 
@@ -152,7 +152,7 @@ trait MercanetRequest
      */
     public function setNormalReturnUrl(string $url): self
     {
-        if (!Helper::isValidUri($url)) {
+        if (! Helper::isValidUri($url)) {
             throw new \InvalidArgumentException('URI is not valid');
         }
 
@@ -172,7 +172,7 @@ trait MercanetRequest
             throw new \InvalidArgumentException('Email is too long');
         }
 
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new \InvalidArgumentException('Email is invalid');
         }
 
