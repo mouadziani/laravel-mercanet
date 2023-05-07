@@ -11,7 +11,7 @@ trait MercanetRequest
     /**
      * List of available fields
      *
-     * @var array|string[]
+     * @var string[]
      */
     private array $availableFields = [
         'amount',
@@ -59,7 +59,7 @@ trait MercanetRequest
     /**
      * List of required fields
      *
-     * @var array|string[]
+     * @var string[]
      */
     private array $requiredFields = [
         'amount',
@@ -71,9 +71,9 @@ trait MercanetRequest
     ];
 
     /**
-     * List of allowed languages
+     * List of allowed languages.
      *
-     * @var array|string[]
+     * @var string[]
      */
     private array $allowedLanguages = [
         'nl', 'fr', 'de', 'it', 'es', 'cy', 'en',
@@ -82,7 +82,7 @@ trait MercanetRequest
     /**
      * @param string $transactionReference
      *
-     * @return $this
+     * @return self
      */
     public function setTransactionReference(string $transactionReference): self
     {
@@ -98,14 +98,10 @@ trait MercanetRequest
     /**
      * @param int $amount
      *
-     * @return $this
+     * @return self
      */
     public function setAmount(int $amount): self
     {
-        if (! is_int($amount)) {
-            throw new \InvalidArgumentException('Integer expected. Amount is always in cents');
-        }
-
         if ($amount <= 0) {
             throw new \InvalidArgumentException('Amount must be a positive number');
         }
@@ -118,11 +114,13 @@ trait MercanetRequest
     /**
      * @param string $currency
      *
-     * @return $this
+     * @return self
      */
     public function setCurrency(string $currency): self
     {
-        if (! $currencyCode = Helper::convertCurrencyToCode($currency)) {
+        $currencyCode = Helper::convertCurrencyToCode($currency);
+
+        if (!$currencyCode) {
             throw new \InvalidArgumentException('Unknown currency');
         }
 
@@ -134,11 +132,11 @@ trait MercanetRequest
     /**
      * @param string $language
      *
-     * @return $this
+     * @return self
      */
     public function setLanguage(string $language): self
     {
-        if (! in_array($language, $this->allowedLanguages, true)) {
+        if (!in_array($language, $this->allowedLanguages, true)) {
             throw new \InvalidArgumentException('Invalid language locale');
         }
 
@@ -150,12 +148,12 @@ trait MercanetRequest
     /**
      * @param string $url
      *
-     * @return $this
+     * @return self
      */
     public function setNormalReturnUrl(string $url): self
     {
-        if (! Helper::isValidatedUri($url)) {
-            throw new \InvalidArgumentException('Uri is not valid');
+        if (!Helper::isValidUri($url)) {
+            throw new \InvalidArgumentException('URI is not valid');
         }
 
         $this->options['normalReturnUrl'] = $url;
@@ -166,7 +164,7 @@ trait MercanetRequest
     /**
      * @param string $email
      *
-     * @return $this
+     * @return self
      */
     public function setCustomerContactEmail(string $email): self
     {
@@ -174,7 +172,7 @@ trait MercanetRequest
             throw new \InvalidArgumentException('Email is too long');
         }
 
-        if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new \InvalidArgumentException('Email is invalid');
         }
 
