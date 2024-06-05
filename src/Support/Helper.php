@@ -29,7 +29,7 @@ class Helper
      */
     public static function convertCurrencyToCode(string $currency = ''): ?string
     {
-        $currencies = [
+        return [
             'EUR' => '978',
             'USD' => '840',
             'CHF' => '756',
@@ -51,9 +51,7 @@ class Helper
             'SGD' => '702',
             'XPF' => '953',
             'XOF' => '952',
-        ];
-
-        return $currencies[$currency] ?? null;
+        ][$currency] ?? null;
     }
 
     /**
